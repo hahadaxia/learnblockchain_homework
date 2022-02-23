@@ -1,20 +1,28 @@
 ### W1-1作业： 
+本次作业说明：
+- homework为本次作业提交内容
+- 全部代码在truffle_demo目录
+- pic目录为截图目录
+
 ### 作业要求：
 1. 使用自己的 github 创建一个作业代码库
 2. 每一次作业使用一个文件夹(w1)
 3. 提交代码、截图、交易 hash 等
+
+
 ### 作业内容
 ### Q1：安装 Metamask、并创建好账号
 
 ### A1：
 
- ![](./pic/metamask.jpeg)
-
+ ![metamask账户](./pic/metamask.jpeg)
 
 ### Q2：执行一次转账
 ### A2：
   [转账详情信息](https://www.oklink.com/zh-cn/oec-test/tx/0xba4b3e6c189edda4057780a1882a09f68e54972544101afca26a23cbb290e5ed)
+  
   ![metamask转账记录](./pic/transfer01.jpeg)
+
   ![ok测试链确认](./pic/transfer02.jpeg)
 
 ### Q3:使用 Remix 创建任意一个合约
@@ -29,10 +37,15 @@
 
 ### Q5: 使用 Truffle 部署 Counter 合约 到 test 网络（goerli）（提交交易 hash）
 ### A5:
-https://ropsten.etherscan.io/tx/0x6e439e1fce90af31a73375a13c430e1a14e580eabeb0d9d5d82665208078f526
+  [转账详情信息](https://ropsten.etherscan.io/tx/0x6e439e1fce90af31a73375a13c430e1a14e580eabeb0d9d5d82665208078f526)
+
+  ![转账详情截图](./pic/truffle01.jpg)
 
 ### Q6:编写一个测试用例
-### A6: 也可见工程目录下的 test/Counter.js
+### A6: 
+- 详情代码可见工程目录下的 ./truffle_demo/test/Counter.js
+![V测试用例截图](./pic/truffle02.jpg)
+
 
 
 
