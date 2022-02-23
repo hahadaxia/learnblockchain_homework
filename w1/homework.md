@@ -29,7 +29,11 @@
 
 ### Q5: 使用 Truffle 部署 Counter 合约 到 test 网络（goerli）（提交交易 hash）
 ### A5:
+https://ropsten.etherscan.io/tx/0x6e439e1fce90af31a73375a13c430e1a14e580eabeb0d9d5d82665208078f526
 
 ### Q6:编写一个测试用例
-### A6:
+### A6: 也可见工程目录下的 test/Counter.js
+
+
+
 
