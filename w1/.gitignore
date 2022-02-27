@@ -1,5 +1,7 @@
 node_modules
 .env
+.env copy
+.env_copy
 coverage
 coverage.json
 typechain
