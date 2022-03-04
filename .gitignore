@@ -20,6 +20,19 @@ typechain
 #Hardhat files
 cache
 artifacts
+####
+node_modules
+.env
+.env copy
+.env_copy
+coverage
+coverage.json
+typechain
+.DS_Store
+.idea
+#Hardhat files
+cache
+artifacts
 
 # Distribution / packaging
 .Python
