@@ -13,3 +13,12 @@ npx hardhat node
 node scripts/sample-script.js
 npx hardhat help
 ```
+
+# common cmd
+```shell
+ npx hardhat compile
+ npx hardhat run scripts/deploy_counter01.js --network ropsten
+ npx hardhat compile
+ npx hardhat run scripts/deploy_counter01.js --network ropsten
+ npx hardhat run scripts/callcount.js --network ropsten
+````

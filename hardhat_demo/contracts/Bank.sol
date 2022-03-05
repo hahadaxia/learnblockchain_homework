@@ -18,7 +18,7 @@ contract Bank {
         balances[msg.sender] = newBalance;
     }
 
-    function WithdrawAll(address payable x) public {
+    function withdraw(address payable x) public {
         address myAddress = address(this);
 
         if (myAddress.balance > 0) {
