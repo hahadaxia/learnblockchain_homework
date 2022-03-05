@@ -5,7 +5,8 @@ contract Score{
 
     address public owner; 
 
-    uint private deposited; 
+    mapping(address => uint) public scores;
+
 
     constructor() { 
 
@@ -19,20 +20,36 @@ contract Score{
         _;
     }
 
-    fallback() external payable { 
 
-        deposited += msg.value; 
-
+    function getScore(address student) public view returns(uint) { 
+        return scores[student]; 
     } 
 
-    function getDeposited() public view returns(uint) { 
-        return deposited; 
-    } 
+    function updateScore(address student,uint s) public onlyOwner { 
 
-    function withdraw() public onlyOwner { 
-
-        payable(owner).transfer(deposited); 
-        
+        require(s >=0&&s<=100,'score is invalid'); 
+        scores[student] = s;
     } 
  
+ }
+
+ interface  IScore { 
+
+    function updateScore(uint score) external ; 
+
+    function getScore(address student) external  view returns(uint) ; 
+
+ }
+
+ contract Teacher {
+    event logdata(uint x);
+    mapping(address => uint) public scores;
+
+    constructor() payable {
+        Score score = new Score();
+    }
+
+    function socre(address student,uint score) external { 
+            IScore(student).updateScore(score);
+        }
  }
