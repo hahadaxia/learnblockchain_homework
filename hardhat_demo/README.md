@@ -16,9 +16,10 @@ npx hardhat help
 
 # common cmd
 ```shell
- npx hardhat compile
- npx hardhat run scripts/deploy_counter01.js --network ropsten
- npx hardhat compile
- npx hardhat run scripts/deploy_counter01.js --network ropsten
- npx hardhat run scripts/callcount.js --network ropsten
+nvm use 14.6
+npx hardhat compile
+npx hardhat run scripts/deploy_counter01.js --network ropsten
+npx hardhat run scripts/callcount.js --network ropsten
+
+npx hardhat run scripts/Bank/deploy_bank.js --network ropsten 
 ````

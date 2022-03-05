@@ -37,7 +37,7 @@
 //   });
 const { ethers, network, artifacts } = require("hardhat");
 
-const { writeAbiAddr } = require('./artifact_saver.js');
+const { writeAbiAddr } = require('../artifact_saver.js');
 
 
 async function main() {
