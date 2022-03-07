@@ -22,4 +22,7 @@ npx hardhat run scripts/deploy_counter01.js --network ropsten
 npx hardhat run scripts/callcount.js --network ropsten
 
 npx hardhat run scripts/Bank/deploy_bank.js --network ropsten 
+
+ npx hardhat run scripts/Score/deploy_score.js --network ropsten
+  npx hardhat run scripts/Score/deploy_Teacher.js --network ropsten
 ````

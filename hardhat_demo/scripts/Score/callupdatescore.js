@@ -1,31 +1,32 @@
 const { ethers, network } = require("hardhat");
 
-const Addr = require(`../../deployments/${network.name}/Score.json`)
+const Addr = require(`../../deployments/${network.name}/Teacher.json`)
 
 async function main() {
   let [owner]  = await ethers.getSigners();
 
 
-  let score = await ethers.getContractAt("Score",
+  let teacher = await ethers.getContractAt("Teacher",
     Addr.address,
     owner);
-
+  console.log("begin log student1 score...")
   let studentaddr1 = '0x3A40c03E6279518F184B73Cd234b19e25ec82eD6'
   let ss1 = 90
-  let changescore = await score.updateScore(studentaddr1,ss1);
+  let changescore = await teacher.set_Score(studentaddr1,ss1);
   //   wait until the transaction is mined
   await changescore.wait();
 
+  console.log("begin log student2 score...")
   let studentaddr2 ='0xa75DcE57fc909871470a6124690265f41031AA25'
   let ss2 = 60
-  changescore = await score.updateScore(studentaddr2,ss2);
+  changescore = await teacher.set_Score(studentaddr2,ss2);
   //   wait until the transaction is mined
   await changescore.wait();
 
-  const studentscore1 = await score.getScore(studentaddr1);
+  const studentscore1 = await teacher.get_Score(studentaddr1);
   console.log("student1 score:" + studentscore1)
 
-  const studentscore2 = await score.getScore(studentaddr2);
+  const studentscore2 = await teacher.get_Score(studentaddr2);
   console.log("student2 score:" + studentscore2)
 
 }
