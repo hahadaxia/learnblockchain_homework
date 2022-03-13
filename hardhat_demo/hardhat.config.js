@@ -19,7 +19,7 @@ task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
  const dotenv = require("dotenv");
  dotenv.config();
 module.exports = {
-  solidity: "0.8.0",
+  solidity: "0.8.2",
   networks:{
     hardhat: {
       allowUnlimitedContractSize: false,
