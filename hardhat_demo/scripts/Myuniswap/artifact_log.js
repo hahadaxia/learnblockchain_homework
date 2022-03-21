@@ -4,6 +4,16 @@ const util = require('util');
 
 const writeFile = util.promisify(fs.writeFile);
 
+
+async function writeAddr(addr, name, network){
+  const deployments = {};
+  deployments["address"] = addr;
+  deployments["contractName"] = name;
+  await writeLog(deployments, name, network);
+}
+
+
+
 // for Hardhat deployment
 async function writeAbiAddr(artifacts, addr, name, network){
   const deployments = {};
@@ -50,4 +60,5 @@ module.exports = {
     writeLog,
     writeAbis,
     writeAbiAddr,
+    writeAddr
 }

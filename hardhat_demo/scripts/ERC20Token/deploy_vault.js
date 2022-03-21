@@ -6,7 +6,8 @@ const { writeAbiAddr } = require('../artifact_saver.js');
 async function main() {
   // await hre.run('compile');
   const Vault = await ethers.getContractFactory("Vault");
-  const vault = await Vault.deploy();
+  erc20addr = '0x6577A6dAEe698dE2cBe1Ab9B3D45201245078a54';
+  const vault = await Vault.deploy(erc20addr);
 
   await vault.deployed();
   console.log("Vault deployed to:", vault.address);

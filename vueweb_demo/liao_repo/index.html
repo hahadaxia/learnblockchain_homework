@@ -21,9 +21,10 @@
     // const VOTE_ADDR = '0x5b2a057e1db47463695b4629114cbdae99235a46';
     // const VOTE_ABI = [{ "inputs": [{ "internalType": "uint256", "name": "_endTime", "type": "uint256" }], "stateMutability": "nonpayable", "type": "constructor" }, { "anonymous": false, "inputs": [{ "indexed": true, "internalType": "address", "name": "voter", "type": "address" }, { "indexed": false, "internalType": "uint8", "name": "proposal", "type": "uint8" }], "name": "Voted", "type": "event" }, { "inputs": [], "name": "endTime", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "proposalA", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "proposalB", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "proposalC", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }, { "inputs": [{ "internalType": "uint8", "name": "_proposal", "type": "uint8" }], "name": "vote", "outputs": [], "stateMutability": "nonpayable", "type": "function" }, { "inputs": [{ "internalType": "address", "name": "", "type": "address" }], "name": "voted", "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }], "stateMutability": "view", "type": "function" }, { "inputs": [], "name": "votes", "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }], "stateMutability": "view", "type": "function" }];
     // const ERC20_ADDR = '0x312f5EDD9fd1dE4979b3b0A76EDfcA1bD6CD2eA2'; //  ropsten
-    const recipient = '0x3A40c03E6279518F184B73Cd234b19e25ec82eD6';
+    // const recipient = '0x3A40c03E6279518F184B73Cd234b19e25ec82eD6';
     const ERC20_ADDR = '0x6577A6dAEe698dE2cBe1Ab9B3D45201245078a54';//rinkeby
-    const ERC20_ABI =[
+    // const ERC20_ADDR = '0xA06f884E3B30418Cb99f347cbD1ceb85EAc29134';
+    const ERC20_ABI =  [
     {
       "inputs": [],
       "stateMutability": "nonpayable",
@@ -338,28 +339,74 @@
       "type": "function"
     }
   ];
-    const VAULT_ADDR = '0x39D16eCC25cD70833579bB94e3371f8c88aF2329';//rinkeby
+  
+    const VAULT_ADDR = '0x84C11ACcD78f240B3CA9954f4FE2724a05FA8Ec7';//rinkeby
+    // const VAULT_ADDR = '0x151F4DB487f4439730f40E51A42fB82935d00427';
     const VAULT_ABI = [
     {
-      "inputs": [],
-      "stateMutability": "payable",
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_tokenAddr",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
       "type": "constructor"
     },
     {
       "inputs": [
         {
           "internalType": "uint256",
-          "name": "amount",
+          "name": "_amount",
           "type": "uint256"
         }
       ],
-      "name": "deposite",
+      "name": "deposit",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [],
+      "name": "tokenAddr",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "userBalance",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        }
+      ],
       "name": "withdraw",
       "outputs": [],
       "stateMutability": "nonpayable",
@@ -465,12 +512,10 @@
         },
         computed: {
           ready: function () {
-            // return this.account && (this.chainId === 3 );
-            return this.account && ( this.chainId === 4);
+            return this.account && ( this.chainId === 4);//rinkeby
           },
           wrongNetwork: function () {
-            // return (this.account &&  (this.chainId === 3 || this.chainId === 4));
-            return (this.account &&  ( this.chainId !== 4));
+            return (this.account &&  ( this.chainId !== 4));//rinkeby
           }
         },
         methods: {
@@ -486,9 +531,10 @@
               }
               loading.setMessage('Please confirm transaction in wallet...');
               // let contract = new ethers.Contract(ERC20_ADDR, ERC20_ABI, window.getWeb3Provider().getSigner());
-              this.provider = new ethers.providers.Web3Provider(window.ethereum);
+              this.provider =  window.getWeb3Provider() ;//new ethers.providers.Web3Provider(window.ethereum);
               this.signer = this.provider.getSigner()
               this.erc20Token = new ethers.Contract(ERC20_ADDR, ERC20_ABI, this.signer);
+              this.valutToken = new ethers.Contract(VAULT_ADDR, VAULT_ABI,this.signer);
 
               // this.erc20Token = contract; // zzh
 
@@ -623,20 +669,24 @@
       })
     },
     approve() {
+      console.log("approve ......")
       let newadd = ethers.utils.parseUnits(this.newapprovenum, 18);
       // this.erc20Token.approve(this.account,newadd).then((r) => {
+      // this.erc20Token.approve(VAULT_ADDR,newadd).then((r) => {
       this.erc20Token.approve(VAULT_ADDR,newadd).then((r) => {
         console.log(r);  // 返回值不是true
         this.getInfo();
       })
     },
-    deposite11() {
-      this.valutToken = new ethers.Contract(VAULT_ADDR, VAULT_ABI,this.signer);
+    deposite() {
+      console.log("deposite11 ......")
+      // this.valutToken = new ethers.Contract(VAULT_ADDR, VAULT_ABI,this.signer);
       let newadd = ethers.utils.parseUnits(this.newdeposite, 18);
-      console.log(this.newdeposite)
+      // console.log(this.newdeposite)
       sender = '0xa75dce57fc909871470a6124690265f41031aa25'
       receiver = '0x3A40c03E6279518F184B73Cd234b19e25ec82eD6'
-      this.valutToken.deposite(sender,receiver,newadd).then((r) => {
+      // this.valutToken.deposite(sender,receiver,newadd).then((r) => {
+      await this.valutToken.deposite(newadd).then((r) => {
         console.log(r);  // 返回值不是true
         this.getInfo();
       })
@@ -876,7 +926,7 @@
     </div>
     <div class="row mb-4">
       <div class="col">
-        <form v-on:submit.prevent="deposite11" action="#0">
+        <form v-on:submit.prevent="deposite" action="#0">
           <!-- <div class="form-check mb-4">
             <li>Now Total balance: {{balance}}</li>
           </div> -->
@@ -890,6 +940,29 @@
     </div>
     <hr>
   </div>
+</div>
+
+<div class="container-xxl mt-4">
+  <hr>
+  <div class="mb-4">
+    <h4>Deposite the ERC20:</h4>
+  </div>
+  <div class="row mb-4">
+    <div class="col">
+      <form v-on:submit.prevent="aaa" action="#0">
+        <!-- <div class="form-check mb-4">
+          <li>Now Total balance: {{balance}}</li>
+        </div> -->
+        <div class="form-check mb-4">
+          <label>new add Deposite:</label>
+          <input type="text" v-model="newdeposite" placeholder="">
+        </div>
+        <button v-bind:disabled="!ready " type="submit" class="btn btn-primary">Deposite</button>
+      </form>
+    </div>
+  </div>
+  <hr>
+</div>
 </div>
 
 <div class="container-xxl mt-4">

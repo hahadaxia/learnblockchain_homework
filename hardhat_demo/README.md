@@ -30,4 +30,6 @@ npx hardhat run scripts/ERC20Token/deploy_erc20token.js --network ropsten
 
 npx hardhat run scripts/ERC721/deploy_erc721demo.js  --network rinkeby
 出现HH702错误,需要删除artifacts文件夹下的cache等临时文件
+
+
 ````
